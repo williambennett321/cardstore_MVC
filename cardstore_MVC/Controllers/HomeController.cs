@@ -1,4 +1,6 @@
-﻿using System;
+﻿using cardstore_MVC.Data;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -11,11 +13,13 @@ namespace cardstore_MVC.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly ApplicationDbContext _context;
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, ApplicationDbContext context)
         {
             _logger = logger;
+            _context = context;
         }
 
         public IActionResult Index()
@@ -28,9 +32,10 @@ namespace cardstore_MVC.Controllers
             return View();
         }
 
-        public IActionResult Listings()
+        public async Task<IActionResult> Listings()
         {
-            return View();
+            var Listings = await _context.CardListing.ToListAsync();
+            return View(Listings);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

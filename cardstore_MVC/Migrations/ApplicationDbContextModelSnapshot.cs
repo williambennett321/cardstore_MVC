@@ -20,17 +20,22 @@ namespace cardstore_MVC.Migrations
 
             modelBuilder.Entity("cardstore_MVC.Models.CardListing", b =>
                 {
-                    b.Property<string>("ListingName")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("CardNum")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("ListingName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("Price")
                         .HasColumnType("int");
 
-                    b.HasKey("ListingName");
+                    b.HasKey("CardNum");
 
                     b.ToTable("CardListing");
                 });

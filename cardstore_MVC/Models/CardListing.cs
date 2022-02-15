@@ -9,6 +9,7 @@ namespace cardstore_MVC.Models
     public class CardListing
     {
         [Key]
+        public int CardNum { get; set; }
         public string ListingName { get; set; }
         [Required]
         public string Description { get; set; }

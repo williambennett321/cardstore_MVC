@@ -2,7 +2,7 @@
 
 namespace cardstore_MVC.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class Create : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -10,13 +10,15 @@ namespace cardstore_MVC.Migrations
                 name: "CardListing",
                 columns: table => new
                 {
-                    ListingName = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    CardNum = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ListingName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Price = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CardListing", x => x.ListingName);
+                    table.PrimaryKey("PK_CardListing", x => x.CardNum);
                 });
         }
 
