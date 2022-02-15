@@ -104,6 +104,20 @@ namespace cardstore_MVC.Controllers
             return View(ListingData);
         }
 
+        public async Task<IActionResult> Details(int? CardNum)
+        {
+            if (CardNum == null)
+            {
+                return NotFound();
+            }
+            var CardListing = await _context.CardListing.FirstOrDefaultAsync(listing => listing.CardNum == CardNum);
+            if (CardListing == null)
+            {
+                return NotFound();
+            }
+            return View(CardListing);
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

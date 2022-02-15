@@ -1,0 +1,21 @@
+﻿@model cardstore_MVC.Models.CardListing
+@{
+    ViewData["Title"] = " Card Listing: ";
+}
+
+<h1>Listing Details: </h1>
+
+<h3>Card Title: @Html.DisplayFor(model => model.ListingName) </h3>
+<div>
+    <p>@Html.DisplayNameFor(model => model.Description): <strong>@Html.DisplayFor(model => model.Description)</strong></p>
+</div>
+<div>
+    <p> @Html.DisplayNameFor(model => model.Price): <strong>@Html.DisplayFor(model => model.Price)</strong></p>
+
+</div>
+
+<div>
+    <a class="btn btn-primary" asp-action="AddOrEdit" asp-route-CardNum="@Model.CardNum">Edit</a>
+    <a class="btn btn-danger" asp-action="Listings">Listings</a>
+</div>
+
