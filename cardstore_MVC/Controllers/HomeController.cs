@@ -28,14 +28,14 @@ namespace cardstore_MVC.Controllers
         }
 
         public IActionResult Privacy()
-        {
+        { 
             return View();
         }
 
         public async Task<IActionResult> Listings()
         {
             var Listings = await _context.CardListing.ToListAsync();
-            return View(Listings);
+            return View(Listings); 
         }
 
         public async Task<IActionResult> AddorEdit(int? CardNum)
@@ -78,7 +78,7 @@ namespace cardstore_MVC.Controllers
 
             if (ModelState.IsValid)
             {
-                try
+                try 
                 {
                     listing.CardNum = ListingData.CardNum;
                     listing.ListingName = ListingData.ListingName;
@@ -95,11 +95,11 @@ namespace cardstore_MVC.Controllers
                     }
                     await _context.SaveChangesAsync();
                 }
-                catch (DbUpdateConcurrencyException)
+                catch (DbUpdateConcurrencyException) 
                 {
                     throw;
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Listings");
             }
             return View(ListingData);
         }

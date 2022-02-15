@@ -10,11 +10,16 @@ namespace cardstore_MVC.Models
     {
         [Key]
         public int CardNum { get; set; }
+        [Required]
         public string ListingName { get; set; }
         [Required]
         public string Description { get; set; }
         [Required]
+        [DataType(DataType.Currency)]
+        [Range(1, int.MaxValue, ErrorMessage = "Invalid Price!")] 
         public int Price { get; set; }
+
+        
 
 
 

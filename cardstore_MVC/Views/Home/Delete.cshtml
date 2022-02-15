@@ -7,6 +7,6 @@
 
 <form asp-action="Delete">
     <input type="hidden" asp-for="CardNum" />
-    <input class="btn btn-dark" type="submit" value="Yes" />
+    <a asp-action="Listings"><input class="btn btn-dark" type="submit" value="Yes" /></a>
     <a class="btn btn-danger" asp-action="Listings">No</a>
 </form>
