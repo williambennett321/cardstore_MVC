@@ -118,6 +118,29 @@ namespace cardstore_MVC.Controllers
             return View(CardListing);
         }
 
+        public async Task<IActionResult> Delete(int? CardNum)
+        {
+            if (CardNum == null)
+            {
+                return NotFound();
+            }
+            var CardListing = await _context.CardListing.FirstOrDefaultAsync(listing => listing.CardNum == CardNum);
+
+            return View(CardListing);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Delete(int CardNum)
+        {
+            var CardListing = await _context.CardListing.FindAsync(CardNum);
+            _context.CardListing.Remove(CardListing);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
+        }
+
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
