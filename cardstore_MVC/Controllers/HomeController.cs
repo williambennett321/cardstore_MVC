@@ -38,6 +38,72 @@ namespace cardstore_MVC.Controllers
             return View(Listings);
         }
 
+        public async Task<IActionResult> AddorEdit(int? CardNum)
+        {
+            ViewBag.PageName = CardNum == null ? "Create Ticket" : "Edit Ticket";
+            ViewBag.isEdit = CardNum == null ? false : true;
+            if (CardNum == null)
+            {
+                return View();
+            }
+            else
+            {
+                var CardListing = await _context.CardListing.FindAsync(CardNum);
+
+                if (CardListing == null)
+                {
+                    return NotFound();
+                }
+                return View(CardListing);
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddOrEdit(int CardNum, [Bind("CardNum,ListingName,Description,Price")]
+       CardListing ListingData)
+        {
+            bool IsListingExist = false;
+
+            CardListing listing = await _context.CardListing.FindAsync(CardNum);
+
+            if (listing != null)
+            {
+                IsListingExist = true;
+            }
+            else
+            {
+                listing = new CardListing();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    listing.CardNum = ListingData.CardNum;
+                    listing.ListingName = ListingData.ListingName;
+                    listing.Description = ListingData.Description;
+                    listing.Price = ListingData.Price;
+
+                    if (IsListingExist)
+                    {
+                        _context.Update(listing);
+                    }
+                    else
+                    {
+                        _context.Add(listing);
+                    }
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    throw;
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            return View(ListingData);
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

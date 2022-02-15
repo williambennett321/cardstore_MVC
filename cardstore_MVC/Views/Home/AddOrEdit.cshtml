@@ -1,0 +1,35 @@
+﻿@model cardstore_MVC.Models.CardListing
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1> @ViewBag.PageName</h1>
+
+<form asp-action="AddOrEdit">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    @if (@ViewBag.IsEdit)
+    {
+        <input type="hidden" asp-for="CardNum" />
+    }
+    <div class="form-group">
+        <label asp-for="ListingName" class="control-label"></label>
+        <input asp-for="ListingName" class="form-control" />
+        <span asp-validation-for="ListingName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Description" class="control-label"></label>
+        <input asp-for="Description" class="form-control" />
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Price" class="control-label"></label>
+        <input asp-for="Price" class="form-control" />
+        <span asp-validation-for="Price" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <input class="btn btn-outline-primary" type="submit" value="Submit" />
+        <a class="btn btn-danger" asp-action="Listings">Listings</a>
+    </div>
+
+</form>
+
